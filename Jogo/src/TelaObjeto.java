@@ -12,28 +12,77 @@ import javax.swing.JPanel;
 
 public class TelaObjeto extends JPanel {
 
-    private int xPos;
-    private int yPos;
-    private int velocidade = 10;
+    public int xPos = 0;
+    public int yPos = 0;
+    public int velocidadeHorizontal = 2;
+    public int velocidadeVertical = 1;
 
+
+
+    public int tamanhoObj = 40;
+
+    private final int ALTURA = 600;
+    private final int LARGURA = 600;
     
     public void mover(){
-        this.xPos =+ xPos+velocidade;
-        this.yPos =+ yPos+velocidade;
+        
         repaint();
     }
+
+    public void moverDireita(){
+        this.xPos =+ xPos+velocidadeHorizontal;
+    }
+
+    public void moverEsquerda(){
+        this.xPos =+ xPos-velocidadeHorizontal*1;
+    }
+
+    public void moverBaixo(){
+        this.yPos =+ yPos+velocidadeVertical;
+    };
+
+   public boolean confereLargura(){
+        if (xPos+40>=LARGURA ||  (xPos+40) <= 0) {
+            return false;            
+        }
+
+        return true;
+   }
+
+
+   public boolean confereAltura(){
+        if (yPos+40 >= ALTURA || yPos+40 <= 0) {
+            return false;
+        }
+
+        return true;
+   }
 
     @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
+        g.drawRect(xPos, yPos, tamanhoObj, tamanhoObj);
         g.setColor(Color.GREEN);
-        g.drawOval(xPos, yPos, 40,40);
+        g.drawOval(xPos, yPos, tamanhoObj,tamanhoObj);
         g.setColor(Color.GREEN);
-        g.fillOval(xPos, yPos, 40, 40);
+        g.fillOval(xPos, yPos, tamanhoObj, tamanhoObj);
     }
 
     public Dimension setPreferredSize(){
-        return new Dimension(600,600);
+        return new Dimension(ALTURA,LARGURA);
+    }
+
+    public int getXpos(){
+        return this.xPos;
+    }
+
+    
+    public int getYpos(){
+        return this.yPos;
+    }
+
+    public int getTamanho(){
+        return this.tamanhoObj;
     }
     
 }
