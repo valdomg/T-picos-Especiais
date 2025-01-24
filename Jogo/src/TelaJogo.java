@@ -8,6 +8,9 @@ public class TelaJogo extends JFrame{
 
     private TelaObjeto bolinha;
     private Timer timer;
+    private Mouse mouse;
+
+    private String placar;
 
     public TelaJogo(){
         setAlwaysOnTop(true);
@@ -18,15 +21,19 @@ public class TelaJogo extends JFrame{
         setLocationRelativeTo(null);
         setPreferredSize(new Dimension(600,600));
 
+        
         this.bolinha = new TelaObjeto();
-        this.timer = new Timer(100, new Animacao(bolinha));
+        this.mouse = new Mouse(bolinha, this);
+        this.timer = new Timer(10, new Animacao(bolinha, mouse));
 
         timer.start();
-
         getContentPane().add(bolinha);
+        addMouseListener(mouse);
 
         pack();
     }
 
-    
+    public void atualizarPlacar(){
+        
+    }
 }
