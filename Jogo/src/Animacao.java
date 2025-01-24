@@ -1,10 +1,12 @@
 
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Animacao implements ActionListener{
 
     private TelaObjeto bolinha;
+   
 
     public Animacao(TelaObjeto bolinha, Mouse mouse){
         this.bolinha = bolinha;
@@ -26,8 +28,8 @@ public class Animacao implements ActionListener{
 
         
         
-        System.out.println("X Pos: "+ bolinha.getXpos()+ " Y Pos: "+bolinha.getYpos());
-        System.out.println("X Pos Final: "+ (bolinha.getXpos()+bolinha.getTamanho())+ " Y POs Final: "+(bolinha.getYpos()+bolinha.getTamanho()));
+        //System.out.println("X Pos: "+ bolinha.getXpos()+ " Y Pos: "+bolinha.getYpos());
+        //System.out.println("X Pos Final: "+ (bolinha.getXpos()+bolinha.getTamanho())+ " Y POs Final: "+(bolinha.getYpos()+bolinha.getTamanho()));
         bolinha.repaint();
         
     }
