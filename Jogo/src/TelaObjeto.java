@@ -1,12 +1,5 @@
 import java.awt.*;
-
-
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.util.Random;
-import java.awt.Dimension;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -24,9 +17,9 @@ public class TelaObjeto extends JPanel {
     public int velocidadeVertical = 1;
 
     private JLabel placarLabel;
-    private double pontuacao;
+    private double pontuacao = 0;
 
-    private Image[] sprites =  {new ImageIcon("src\\sprites\\sprites.png").getImage()}; 
+    private Image [] sprites =  {new ImageIcon("Jogo\\src\\sprites\\sprite-mao.png").getImage()}; 
 
     Random random = new Random();
 
@@ -42,13 +35,17 @@ public class TelaObjeto extends JPanel {
     public void paintComponent(Graphics g){
         super.paintComponent(g);
 
-        g.drawImage(sprites[0], xPos, yPos, null);
+        Graphics2D g2 = (Graphics2D) g;
 
-        g.drawRect(xPos, yPos, tamanhoObj, tamanhoObj);
-        g.setColor(Color.GREEN);
-        g.drawOval(xPos, yPos, tamanhoObj,tamanhoObj);
-        g.setColor(Color.GREEN);
-        g.fillOval(xPos, yPos, tamanhoObj, tamanhoObj);
+        //g.drawImage(sprites, LARGURA/14, 200, this);
+
+        g2.drawImage(sprites[0], 110, 275, 400,400, this);
+
+        g2.drawRect(xPos, yPos, tamanhoObj, tamanhoObj);
+        g2.setColor(Color.GREEN);
+        g2.drawOval(xPos, yPos, tamanhoObj,tamanhoObj);
+        g2.setColor(Color.GREEN);
+        g2.fillOval(xPos, yPos, tamanhoObj, tamanhoObj);
     }
     
     public void spawnar(){
