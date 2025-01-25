@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 public class Animacao implements ActionListener{
 
     private TelaObjeto bolinha;
+    private Alvo alvo;
    
 
     public Animacao(TelaObjeto bolinha, Mouse mouse){
@@ -16,15 +17,16 @@ public class Animacao implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
         if (!bolinha.confereLargura()) {
-            bolinha.velocidadeHorizontal = bolinha.velocidadeHorizontal * -1;
+            bolinha.mudaDirecaoHorizontal();
         }
 
         if (!bolinha.confereAltura()) {
-            bolinha.velocidadeVertical = bolinha.velocidadeVertical * -1;
+            bolinha.mudaDirecaoVertical();
         }
 
-        bolinha.xPos =+ bolinha.xPos+bolinha.velocidadeHorizontal;
-        bolinha.yPos =+ bolinha.yPos+bolinha.velocidadeVertical;
+        bolinha.moverElementoX();
+        bolinha.moverElementoY();
+        //bolinha.yPos =+ bolinha.yPos+bolinha.velocidadeVertical;
 
         
         
