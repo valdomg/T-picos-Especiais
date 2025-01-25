@@ -9,6 +9,7 @@ import javax.swing.Timer;
 public class TelaJogo extends JFrame{
 
     private TelaObjeto bolinha;
+    private Alvo alvo;
     private Timer timer;
     private Mouse mouse;
     private TelaSprite sprites;
@@ -22,10 +23,10 @@ public class TelaJogo extends JFrame{
         setResizable(false);
         setLocationRelativeTo(null);
         
-
+        this.alvo = new Alvo();
         this.sprites = new TelaSprite();
-        this.bolinha = new TelaObjeto();
-        this.mouse = new Mouse(bolinha, this);
+        this.bolinha = new TelaObjeto(alvo);
+        this.mouse = new Mouse(bolinha, this, alvo);
         this.timer = new Timer(10, new Animacao(bolinha, mouse));
 
         getContentPane().add(bolinha);
