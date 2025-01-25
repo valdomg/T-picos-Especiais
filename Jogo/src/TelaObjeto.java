@@ -10,22 +10,17 @@ public class TelaObjeto extends JPanel {
     private final int ALTURA = 600;
     private final int LARGURA = 600;
 
-    protected int xPos = LARGURA/2;
-    protected int yPos = LARGURA/2;
-
-    public int velocidadeHorizontal= 2;
-    public int velocidadeVertical = 1;
-
-    private JLabel placarLabel;
     private double pontuacao = 0;
 
+    private JLabel placarLabel;
     private Image [] sprites =  {new ImageIcon("Jogo\\src\\sprites\\sprite-mao.png").getImage()}; 
-
     Random random = new Random();
+    private Alvo alvo;
 
     public int tamanhoObj = 40;
 
-    public TelaObjeto(){
+    public TelaObjeto(Alvo alvo){
+        this.alvo = alvo;
         spawnar();
         initLabels();
         setPreferredSize(new Dimension(ALTURA,LARGURA));
@@ -41,25 +36,55 @@ public class TelaObjeto extends JPanel {
 
         g2.drawImage(sprites[0], 110, 275, 400,400, this);
 
-        g2.drawRect(xPos, yPos, tamanhoObj, tamanhoObj);
-        g2.setColor(Color.GREEN);
-        g2.drawOval(xPos, yPos, tamanhoObj,tamanhoObj);
-        g2.setColor(Color.GREEN);
-        g2.fillOval(xPos, yPos, tamanhoObj, tamanhoObj);
+
+        desenharAlvo(g2);
+
     }
     
     public void spawnar(){
-        this.xPos = random.nextInt(15, LARGURA - 50);
-        this.yPos = random.nextInt(15, ALTURA - 50);
+        alvo.setxPos(random.nextInt(15, LARGURA - 50));
+        alvo.setyPos(random.nextInt(15, ALTURA - 50));
+    }
+
+    public void desenharAlvo(Graphics2D g2){
+        int tamanho = alvo.getTamanho();
+        int xPos = alvo.getxPos();
+        int yPos = alvo.getyPos();
+        
+        g2.drawRect(xPos, yPos, tamanho, tamanho);
+        g2.setColor(Color.GREEN);
+        g2.drawOval(xPos, yPos, tamanho,tamanho);
+        g2.setColor(Color.GREEN);
+        g2.fillOval(xPos, yPos, tamanho, tamanho);
+
     }
 
     public void aumentarVelocidade(){
-        velocidadeHorizontal=+velocidadeHorizontal+2;
-        velocidadeVertical=+velocidadeVertical+2;
+        alvo.setVelocidadeHorizontal(alvo.getVelocidadeHorizontal()+3);
+        alvo.setVelocidadeVertical(alvo.getVelocidadeVertical()+4);
+    }
+
+    public void mudaDirecaoHorizontal(){
+        alvo.setVelocidadeHorizontal(alvo.getVelocidadeHorizontal() * -1);
+    }
+
+    public void mudaDirecaoVertical(){
+        alvo.setVelocidadeVertical(alvo.getVelocidadeVertical() * -1);
+    }
+
+    public void moverElementoX(){
+        alvo.setxPos( alvo.getxPos()+alvo.getVelocidadeHorizontal());
+    }
+
+    public void moverElementoY(){
+        alvo.setyPos( alvo.getyPos()+alvo.getVelocidadeVertical());
     }
 
     public boolean confereLargura(){
-        if (getTamanhoX()>=LARGURA ||  xPos <= 0) {
+        int tamanhoAlvo = alvo.getTamanhoX();
+        int xPosAlvo = alvo.getxPos();
+
+        if (tamanhoAlvo>=LARGURA ||  xPosAlvo <= 0) {
             return false;            
         }
 
@@ -67,7 +92,10 @@ public class TelaObjeto extends JPanel {
    }
 
    public boolean confereAltura(){
-        if (getTamanhoY() >= ALTURA  || yPos <= 0) {
+        int tamanhoAlvo = alvo.getTamanhoY();
+        int yPosAlvo = alvo.getyPos();
+
+        if (tamanhoAlvo >= ALTURA  || yPosAlvo <= 0) {
             return false;
         }
 
@@ -92,21 +120,5 @@ public class TelaObjeto extends JPanel {
         return new Dimension(ALTURA,LARGURA);
     }
 
-    public int getXpos(){
-        return this.xPos;
-    }
-
-    
-    public int getYpos(){
-        return this.yPos;
-    }
-
-    public int getTamanhoY(){
-        return this.tamanhoObj+this.getYpos();
-    }
-
-    public int getTamanhoX(){
-        return this.tamanhoObj+this.getXpos();
-    }
     
 }
